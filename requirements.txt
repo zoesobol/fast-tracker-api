@@ -31,5 +31,5 @@ tomli==1.2.1
 tqdm==4.62.2
 troposphere==3.0.3
 urllib3==1.26.6
-Werkzeug==0.16.1
+Werkzeug
 wsgi-request-logger==0.4.6
