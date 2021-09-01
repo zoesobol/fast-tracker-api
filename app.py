@@ -2,6 +2,7 @@ import flask
 from flask import request, jsonify, abort
 from flask_cors import CORS, cross_origin
 import json
+import git
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
@@ -23,6 +24,18 @@ def home():
 <p>Please don't hack this.</p>
 <p>Made by <a href="https://www.zoesobol.com.ar">Zoe Sobol</a></p>'''
 
+
+@app.route('/update_server', methods=['POST'])
+def webhook():
+    if request.method == 'POST':
+        repo = git.Repo('https://github.com/zoesobol/fast-tracker-api.git')
+        origin = repo.remotes.origin
+
+        origin.pull()
+
+        return 'Updated PythonAnywhere successfully', 200
+    else:
+        return 'Wrong event type', 400
 
 # A route to return all of the available entries in our catalog.
 @app.route('/tasks/', methods=['POST'])
